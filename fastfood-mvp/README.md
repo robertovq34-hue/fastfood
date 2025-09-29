@@ -1,15 +1,3 @@
-# 🍔 FastFood MVP
-
-Proyecto en Java que implementa un sistema de pedidos personalizados para una cadena de comida rápida.  
-Incluye los patrones **Factory**, **Builder** y el enfoque **MVC**.
-
-## 🚀 Funcionalidades
-- Crear combos base de manera flexible.
-- Personalizar paso a paso (bebida, acompañamiento, extra).
-- Visualizar el resumen final del pedido.
-
-## 📊 Diagrama UML
-
 ```mermaid
 classDiagram
     class Combo {
@@ -17,31 +5,44 @@ classDiagram
         - String bebida
         - String acompanamiento
         - String extra
-        + toString()
+        + setBebida(String)
+        + setAcompanamiento(String)
+        + setExtra(String)
     }
 
     class ComboBuilder {
-        - String base
-        - String bebida
-        - String acompanamiento
-        - String extra
-        + setBase(base)
-        + setBebida(bebida)
-        + setAcompanamiento(acompanamiento)
-        + setExtra(extra)
+        - Combo combo
+        + agregarBebida(String)
+        + agregarAcompanamiento(String)
+        + agregarExtra(String)
         + build() Combo
     }
 
     class ComboFactory {
-        + crearComboBase(type ComboType) String
+        + crearCombo(String) Combo
     }
 
-    enum ComboType {
-        HAMBURGUESA
-        POLLO
-        VEGETARIANO
+    class Pedido {
+        - Combo combo
+        + mostrarDetalle()
     }
 
+    class PedidoView {
+        + pedirBase() String
+        + pedirBebida() String
+        + pedirAcompanamiento() String
+        + pedirExtra() String
+    }
+
+    class PedidoController {
+        - PedidoView view
+        + iniciarPedido()
+    }
+
+    Main --> PedidoController
+    PedidoController --> PedidoView
+    PedidoController --> ComboBuilder
     ComboBuilder --> Combo
-    ComboFactory --> ComboType
-```
+    Pedido --> Combo
+    ComboFactory --> Combo
+
