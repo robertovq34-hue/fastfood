@@ -1,190 +1,86 @@
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+# 🍗 Sistema de Gestión de Pedidos – El Chino Brasa
 
-// -----------------------------
-// Clase base Usuario
-// -----------------------------
-abstract class Usuario {
-    protected int id;
-    protected String nombre;
-    protected String rol;
-    protected String contrasena;
+Proyecto desarrollado en **Python (POO)** como parte del curso **Programación Orientada a Objetos II**, con el objetivo de automatizar y optimizar el proceso de pedidos en el restaurante *El Chino Brasa*.  
+El sistema integra las áreas de atención, cocina y administración, aplicando principios de diseño orientado a objetos y buenas prácticas de ingeniería de software.
 
-    public Usuario(int id, String nombre, String rol, String contrasena) {
-        this.id = id;
-        this.nombre = nombre;
-        this.rol = rol;
-        this.contrasena = contrasena;
-    }
+---
 
-    public boolean autenticar(String usuario, String contrasena) {
-        return this.nombre.equals(usuario) && this.contrasena.equals(contrasena);
-    }
+## 🧩 Descripción del proyecto
 
-    public String getRol() {
-        return rol;
-    }
+El sistema responde a la problemática actual del restaurante, que enfrenta errores, demoras y falta de trazabilidad en la gestión manual de pedidos.  
+A través de una interfaz lógica y modular, el sistema permite:
+- Registrar pedidos de manera digital.
+- Enviar automáticamente los pedidos al área de cocina.
+- Actualizar el estado de los pedidos en tiempo real.
+- Generar facturas automáticas.
+- Emitir reportes administrativos para la toma de decisiones.
 
-    public String getNombre() {
-        return nombre;
-    }
-}
+---
 
-// -----------------------------
-// Subclases de Usuario
-// -----------------------------
-class Mesero extends Usuario {
-    public Mesero(int id, String nombre, String contrasena) {
-        super(id, nombre, "Mesero", contrasena);
-    }
+## 🎯 Objetivos
 
-    public Pedido registrarPedido(List<Producto> productos) {
-        Pedido pedido = new Pedido(LocalDateTime.now(), "Pendiente");
-        for (Producto p : productos) {
-            pedido.agregarProducto(p);
-        }
-        return pedido;
-    }
-}
+### Objetivo general
+Desarrollar un sistema informático basado en la Programación Orientada a Objetos (POO) que automatice y optimice el proceso de gestión de pedidos en el restaurante El Chino Brasa.
 
-class Cocinero extends Usuario {
-    public Cocinero(int id, String nombre, String contrasena) {
-        super(id, nombre, "Cocinero", contrasena);
-    }
+### Objetivos específicos
+- Analizar el proceso actual de gestión de pedidos e identificar sus fallas.
+- Diseñar la arquitectura del sistema usando principios POO y diagramas UML.
+- Implementar módulos en Python para pedidos, usuarios, facturación y reportes.
+- Validar el correcto funcionamiento mediante pruebas unitarias y de integración.
+- Evaluar el impacto del sistema en la eficiencia operativa.
 
-    public void actualizarEstado(Pedido pedido, String nuevoEstado) {
-        pedido.setEstado(nuevoEstado);
-        System.out.println("Pedido #" + pedido.getId() + " actualizado a: " + nuevoEstado);
-    }
-}
+---
 
-class Administrador extends Usuario {
-    public Administrador(int id, String nombre, String contrasena) {
-        super(id, nombre, "Administrador", contrasena);
-    }
+## ⚙️ Requerimientos
 
-    public void generarReporte(List<Pedido> pedidos) {
-        System.out.println("=== Reporte de Pedidos ===");
-        for (Pedido p : pedidos) {
-            System.out.println(p);
-        }
-    }
-}
+### Funcionales
+- Registrar y editar pedidos.
+- Comunicar automáticamente pedidos al área de cocina.
+- Calcular el total del pedido y generar factura.
+- Gestionar roles de usuario (Mesero, Cocinero, Administrador).
+- Generar reportes de ventas y tiempos de atención.
 
-// -----------------------------
-// Clase Producto
-// -----------------------------
-class Producto {
-    private String nombre;
-    private double precio;
+### No funcionales
+- **Usabilidad:** interfaz sencilla y entendible.
+- **Rendimiento:** respuesta rápida incluso en horas pico.
+- **Compatibilidad:** ejecutable en Windows/Linux con Python 3.10+.
+- **Seguridad:** control de acceso por roles.
+- **Mantenibilidad:** código documentado y modular.
 
-    public Producto(String nombre, double precio) {
-        this.nombre = nombre;
-        this.precio = precio;
-    }
+---
 
-    public String getNombre() {
-        return nombre;
-    }
+## 💻 Tecnologías utilizadas
 
-    public double getPrecio() {
-        return precio;
-    }
+| Tipo | Herramienta |
+|------|--------------|
+| Lenguaje | Python 3.10+ |
+| Paradigma | Programación Orientada a Objetos |
+| Librerías | `datetime`, `typing` |
+| Control de versiones | Git / GitHub |
+| Diagramas | UML (Clases, Casos de Uso, Secuencia) |
 
-    @Override
-    public String toString() {
-        return nombre + " (S/ " + precio + ")";
-    }
-}
+---
 
-// -----------------------------
-// Clase Pedido
-// -----------------------------
-class Pedido {
-    private static int contador = 1;
-    private int id;
-    private LocalDateTime fechaHora;
-    private String estado;
-    private List<Producto> productos = new ArrayList<>();
+## 🧠 Diseño del sistema
 
-    public Pedido(LocalDateTime fechaHora, String estado) {
-        this.id = contador++;
-        this.fechaHora = fechaHora;
-        this.estado = estado;
-    }
+### Diagramas UML
+- **Diagrama de Clases:** modela las entidades principales (`Usuario`, `Pedido`, `Producto`, `Factura`).
+- **Diagrama de Casos de Uso:** define las interacciones entre actores (`Mesero`, `Cocinero`, `Administrador`).
+- **Diagrama de Secuencia:** representa el flujo lógico del pedido hasta su facturación.
 
-    public void agregarProducto(Producto producto) {
-        productos.add(producto);
-    }
+### Principales clases
 
-    public void eliminarProducto(Producto producto) {
-        productos.remove(producto);
-    }
+| Clase | Descripción |
+|--------|--------------|
+| `Usuario` | Clase base para todos los roles del sistema. |
+| `Mesero` | Registra los pedidos de los clientes. |
+| `Cocinero` | Actualiza el estado de los pedidos. |
+| `Administrador` | Genera reportes de ventas y pedidos. |
+| `Pedido` | Contiene los productos y su estado. |
+| `Producto` | Representa los ítems del menú. |
+| `Factura` | Calcula y muestra el total del pedido. |
 
-    public double calcularTotal() {
-        return productos.stream().mapToDouble(Producto::getPrecio).sum();
-    }
+---
 
-    public int getId() {
-        return id;
-    }
+## 🧩 Estructura del proyecto
 
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    @Override
-    public String toString() {
-        return "Pedido #" + id + " [" + estado + "] - Total: S/ " + calcularTotal();
-    }
-}
-
-// -----------------------------
-// Clase Factura
-// -----------------------------
-class Factura {
-    private int numero;
-    private Pedido pedido;
-    private double total;
-
-    public Factura(int numero, Pedido pedido) {
-        this.numero = numero;
-        this.pedido = pedido;
-        this.total = pedido.calcularTotal();
-    }
-
-    public void generarFactura() {
-        System.out.println("Factura N°: " + numero);
-        System.out.println("Detalle: " + pedido);
-        System.out.println("Total a pagar: S/ " + total);
-    }
-}
-
-// -----------------------------
-// Clase principal para prueba
-// -----------------------------
-public class SistemaPedidos {
-    public static void main(String[] args) {
-        // Productos
-        Producto pollo = new Producto("Pollo a la brasa", 35.0);
-        Producto papas = new Producto("Papas fritas", 8.0);
-
-        // Mesero registra un pedido
-        Mesero mesero = new Mesero(1, "Carlos", "1234");
-        List<Producto> productos = List.of(pollo, papas);
-        Pedido pedido = mesero.registrarPedido(productos);
-
-        // Cocinero actualiza estado
-        Cocinero cocinero = new Cocinero(2, "Luis", "abcd");
-        cocinero.actualizarEstado(pedido, "Listo");
-
-        // Generar factura
-        Factura factura = new Factura(1001, pedido);
-        factura.generarFactura();
-
-        // Administrador revisa pedidos
-        Administrador admin = new Administrador(3, "Pedro", "admin");
-        admin.generarReporte(List.of(pedido));
-    }
-}
