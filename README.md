@@ -1,3 +1,5 @@
+[README_ElChinoBrasa.md](https://github.com/user-attachments/files/23175912/README_ElChinoBrasa.md)
+
 # 🍗 Sistema de Gestión de Pedidos – El Chino Brasa
 
 Proyecto desarrollado en **Python (POO)** como parte del curso **Programación Orientada a Objetos II**, con el objetivo de automatizar y optimizar el proceso de pedidos en el restaurante *El Chino Brasa*.  
@@ -84,3 +86,82 @@ Desarrollar un sistema informático basado en la Programación Orientada a Objet
 
 ## 🧩 Estructura del proyecto
 
+```
+📦 el-chino-brasa
+├── 📄 README.md
+├── 📄 main.py
+├── 📄 clases.py
+├── 📄 diagramas/
+│   ├── diagrama_clases.png
+│   ├── diagrama_casos_uso.png
+│   └── diagrama_secuencia.png
+└── 📄 requirements.txt
+```
+
+---
+
+## 🚀 Ejecución del programa
+
+### 1️⃣ Clonar el repositorio
+```bash
+git clone https://github.com/tuusuario/el-chino-brasa.git
+cd el-chino-brasa
+```
+
+### 2️⃣ Ejecutar el sistema
+```bash
+python main.py
+```
+
+El sistema simula el flujo completo:
+1. El mesero registra un pedido.
+2. El cocinero actualiza el estado.
+3. Se genera una factura automática.
+4. El administrador visualiza el reporte.
+
+---
+
+## 🧪 Ejemplo de salida en consola
+
+```
+Pedido #1 actualizado a: Listo
+
+Factura N°: 1001
+Detalle del pedido:
+ - Pollo a la brasa (S/ 35.00)
+ - Papas fritas (S/ 8.00)
+ - Inca Kola 1L (S/ 6.00)
+Total a pagar: S/ 49.00
+
+=== Reporte de Pedidos ===
+Pedido #1 [Listo] - Total: S/ 49.00
+```
+
+---
+
+## 🧾 Autores
+
+| Integrante | Carrera | Código |
+|-------------|----------|---------|
+| **Fernando Avendaño Fajardo** | Ingeniería Agroindustrial | 2512145 |
+| **Roberto Villacorta Quispe** | Ingeniería de Sistemas de Información | 2310398 |
+| **Pedro Gabriel Sáenz Pachas** | Ingeniería de Software | 2411166 |
+
+---
+
+## 📚 Referencias bibliográficas
+
+- Booch, G., Rumbaugh, J., & Jacobson, I. (2005). *El lenguaje unificado de modelado: Manual de referencia (2.ª ed.)*. Pearson Educación.  
+- Pressman, R. S. (2010). *Ingeniería del software: un enfoque práctico (7.ª ed.)*. McGraw-Hill.  
+- Sommerville, I. (2011). *Ingeniería de Software (9.ª ed.)*. Pearson Educación.  
+
+---
+
+## 🏁 Estado actual del proyecto
+
+✅ Módulos implementados: Registro de pedidos, Cocina, Facturación, Reportes.  
+🔧 Pendiente: Integración de interfaz gráfica (Tkinter o JavaFX) y conexión a base de datos.  
+📦 Versión: `v1.0.0`  
+📅 Fecha: Febrero 2025  
+
+---
