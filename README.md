@@ -1,5 +1,8 @@
+## 🧩 Diagrama de Clases – Sistema "El Chino Brasa"
+
+```mermaid
 classDiagram
-    %% === Clases ===
+    %% === CLASES ===
     class Usuario {
         - id : int
         - nombre : String
@@ -57,7 +60,7 @@ classDiagram
         + actualizarPedido(pedido : Pedido, nuevoEstado : String) void
     }
 
-    %% === Relaciones ===
+    %% === RELACIONES ===
     Administrador --|> Usuario : hereda
     Usuario "1" --> "*" Pedido : realiza
     Pedido "1" --> "*" DetallePedido : contiene
