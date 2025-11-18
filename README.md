@@ -1,10 +1,4 @@
-classDiagram
-    %% Estrategia
-    class PaymentStrategy {
-        <<interface>>
-        +pay(double amount) double
-        +getName() String
-    }
+
 
     class CardStrategy {
         +pay(double amount) double
