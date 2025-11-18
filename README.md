@@ -1,69 +1,71 @@
-## 🧩 Diagrama de Clases – Sistema "El Chino Brasa"
-
-```mermaid
 classDiagram
-    %% === CLASES ===
-    class Usuario {
-        - id : int
-        - nombre : String
-        - rol : String
-        - username : String
-        - password : String
-        + autenticar() boolean
-        + cerrarSesion() void
+    %% Estrategia
+    class PaymentStrategy {
+        <<interface>>
+        +pay(double amount) double
+        +getName() String
     }
 
-    class Administrador {
-        + generarReporteVentas() void
-        + gestionarUsuarios() void
+    class CardStrategy {
+        +pay(double amount) double
+        +getName() String
     }
 
-    class Producto {
-        - id : int
-        - nombre : String
-        - precio : double
-        - descripcion : String
-        + actualizarPrecio(nuevoPrecio : double) void
-        + mostrarInfo() void
+    class YapeStrategy {
+        +pay(double amount) double
+        +getName() String
     }
 
-    class Pedido {
-        - id : int
-        - fechaHora : DateTime
-        - estado : String
-        - listaProductos : List<DetallePedido>
-        + agregarProducto(producto : Producto, cantidad : int) void
-        + eliminarProducto(producto : Producto) void
-        + calcularTotal() double
-        + actualizarEstado(nuevoEstado : String) void
+    class CashStrategy {
+        +pay(double amount) double
+        +getName() String
     }
 
-    class DetallePedido {
-        - producto : Producto
-        - cantidad : int
-        + calcularSubtotal() double
+    PaymentStrategy <|.. CardStrategy
+    PaymentStrategy <|.. YapeStrategy
+    PaymentStrategy <|.. CashStrategy
+
+    %% Observer
+    class Observer {
+        <<interface>>
+        +update(Payment payment)
+        +getName() String
     }
 
-    class Factura {
-        - id : int
-        - pedido : Pedido
-        - total : double
-        - fecha : DateTime
-        + generarFactura() void
-        + mostrarFactura() void
+    class UserAppObserver {
+        +update(Payment payment)
+        +getName() String
     }
 
-    class Cocina {
-        - id : int
-        - nombre : String
-        + recibirPedido(pedido : Pedido) void
-        + actualizarPedido(pedido : Pedido, nuevoEstado : String) void
+    class AccountingObserver {
+        +update(Payment payment)
+        +getName() String
     }
 
-    %% === RELACIONES ===
-    Administrador --|> Usuario : hereda
-    Usuario "1" --> "*" Pedido : realiza
-    Pedido "1" --> "*" DetallePedido : contiene
-    DetallePedido "*" --> "1" Producto : pertenece a
-    Pedido "1" --> "1" Factura : genera
-    Cocina "1" --> "*" Pedido : gestiona
+    Observer <|.. UserAppObserver
+    Observer <|.. AccountingObserver
+
+    %% Payment
+    class Payment {
+        -double baseAmount
+        -double totalAmount
+        -String methodName
+        +getBaseAmount()
+        +getTotalAmount()
+        +getMethodName()
+    }
+
+    %% PaymentProcessor (Subject)
+    class PaymentProcessor {
+        -List~Observer~ observers
+        -PaymentStrategy strategy
+        +addObserver(Observer)
+        +removeObserver(Observer)
+        +notifyObservers(Payment)
+        +setStrategy(PaymentStrategy)
+        +processPayment(double)
+    }
+
+    PaymentProcessor --> PaymentStrategy
+    PaymentProcessor --> Observer
+    PaymentProcessor --> Payment
